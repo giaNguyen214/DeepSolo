@@ -10,7 +10,7 @@ import multiprocessing as mp
 import bisect
 import atexit
 import json
-from detectron2.utils.logger import setup_logger
+# from detectron2.utils.logger import setup_logger
 from detectron2.data import MetadataCatalog
 from detectron2.engine.defaults import DefaultPredictor
 from adet.config import get_cfg
@@ -98,7 +98,7 @@ class SceneTextDetection:
         model_weight: str,
         config_file:str =  './configs/R_50/mlt19_multihead/finetune.yaml'
     ):
-        self.logger = setup_logger()
+        # self.logger = setup_logger()
         self.cfg = self.setup_cfg(
             model_weight,
             config_file
@@ -177,11 +177,11 @@ class SceneTextDetection:
         start_time = time.time()
         predictions = self.default_predictor(img)
 
-        self.logger.info(
-            "{}: detected {} instances in {:.2f}s".format(
-                image_path, len(predictions["instances"]), time.time() - start_time
-            )
-        )
+        # self.logger.info(
+        #     "{}: detected {} instances in {:.2f}s".format(
+        #         image_path, len(predictions["instances"]), time.time() - start_time
+        #     )
+        # )
 
         instances = predictions['instances'].to('cpu')
 
@@ -199,11 +199,11 @@ class SceneTextDetection:
 
         start_time = time.time()
         predictions = self.batch_predictor(images)
-        self.logger.info(
-            "Detected instances in {:.2f}s".format(
-                (time.time() - start_time) / len(images)
-            )
-        )
+        # self.logger.info(
+        #     "Detected instances in {:.2f}s".format(
+        #         (time.time() - start_time) / len(images)
+        #     )
+        # )
         results = []
 
         for i, pred in enumerate(predictions):
